@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Grey-NX Pack</title>
+  <style>
+    body {
+      background-color: #121212;
+      color: #e0e0e0;
+      font-family: 'Segoe UI', sans-serif;
+      font-size: 18px;
+      margin: 0;
+      padding: 0;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      height: 100vh;
+      justify-content: flex-start;
+    }
+
+    header {
+      width: 100%;
+      padding: 10px 0;
+      text-align: center;
+      background: #1e1e1e;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5);
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      z-index: 10;
+    }
+
+    nav {
+      display: flex;
+      justify-content: center;
+      gap: 30px;
+      background-color: #1e1e1e;
+      padding: 10px 0;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5);
+      width: 100%;
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      z-index: 20;
+      border-bottom: 3px solid #bb86fc;
+    }
+
+    nav a {
+      color: #bb86fc;
+      text-decoration: none;
+      font-size: 1.2em;
+      font-weight: bold;
+      display: flex;
+      align-items: center;
+      transition: color 0.3s, transform 0.2s;
+    }
+
+    nav a:hover {
+      color: #ffffff;
+      transform: scale(1.1);
+    }
+
+    nav a:after {
+      content: ' ▼';
+      font-size: 1.2em;
+      margin-left: 5px;
+      transition: transform 0.3s;
+    }
+
+    nav a:hover:after {
+      transform: rotate(180deg);
+    }
+
+    .container {
+      max-width: 1200px;
+      width: 100%;
+      margin-top: 120px;
+      border-radius: 10px;
+      overflow: hidden;
+      padding: 20px;
+      background-color: #1e1e1e;
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
+    }
+
+    section {
+      display: none;
+      padding: 40px;
+      background-color: #333;
+      border-radius: 8px;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5);
+    }
+
+    .active {
+      display: block;
+    }
+  </style>
+</head>
+<body>
+  <header></header>
+  
+  <nav>
+    <a href="#mein-setup" onclick="showSection('mein-setup')">My Setup</a>
+    <a href="#guides" onclick="showSection('guides')">Guides</a>
+    <a href="#my-programms" onclick="showSection('my-programms')">My Programs</a>
+    <a href="#disrdp" onclick="showSection('disrdp')">Discord</a>
+  </nav>
+  
+  <div class="container">
+    <section id="mein-setup" class="tab-section">
+      <h2 style="color: #bb86fc;">My Setup</h2>
+      <p>Content for My Setup goes here.</p>
+    </section>
+    
+    <section id="guides" class="tab-section">
+      <h2 style="color: #bb86fc;">Guides</h2>
+      <p>Content for Guides goes here.</p>
+    </section>
+    
+    <section id="my-programms" class="tab-section">
+      <h2 style="color: #bb86fc;">My Programs</h2>
+      <p>Content for My Programs goes here.</p>
+    </section>
+    
+    <section id="disrdp" class="tab-section">
+      <h2 style="color: #bb86fc;">Discord</h2>
+      <p>Content for Discord goes here.</p>
+    </section>
+  </div>
+  
+  <script>
+    function showSection(sectionId) {
+      const sections = document.querySelectorAll('.tab-section');
+      sections.forEach(section => {
+        section.classList.remove('active');
+      });
+      
+      const activeSection = document.getElementById(sectionId);
+      activeSection.classList.add('active');
+    }
+  </script>
+</body>
+</html>
