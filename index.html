@@ -1,9 +1,9 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="de">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Grey-NX Pack</title>
+  <title>Mein Setup</title>
   <style>
     body {
       background-color: #121212;
@@ -15,39 +15,27 @@
       display: flex;
       flex-direction: column;
       align-items: center;
-      height: 100vh;
-      justify-content: flex-start;
+      height: 100%;
+      overflow-x: hidden;
     }
-
-    header {
-      width: 100%;
-      padding: 10px 0;
-      text-align: center;
-      background: #1e1e1e;
-      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5);
-      position: fixed;
-      top: 0;
-      left: 0;
-      right: 0;
-      z-index: 10;
-    }
-
+    
+    /* Floating, abgerundete Tab-Leiste */
     nav {
       display: flex;
       justify-content: center;
       gap: 30px;
       background-color: #1e1e1e;
       padding: 10px 0;
-      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5);
-      width: 100%;
       position: fixed;
       top: 0;
       left: 0;
       right: 0;
       z-index: 20;
-      border-bottom: 3px solid #bb86fc;
+      border-radius: 8px 8px 0 0; /* Leicht abgerundete Ecken oben */
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5);
     }
-
+    
+    /* Tabs */
     nav a {
       color: #bb86fc;
       text-decoration: none;
@@ -55,90 +43,216 @@
       font-weight: bold;
       display: flex;
       align-items: center;
+      padding: 10px 20px;
       transition: color 0.3s, transform 0.2s;
     }
-
+    
     nav a:hover {
       color: #ffffff;
       transform: scale(1.1);
     }
-
-    nav a:after {
-      content: ' ▼';
+    
+    /* Kleiner Pfeil rechts bei den Tabs */
+    nav a::after {
+      content: " ▼";
       font-size: 1.2em;
       margin-left: 5px;
       transition: transform 0.3s;
     }
-
-    nav a:hover:after {
+    
+    nav a:hover::after {
       transform: rotate(180deg);
     }
-
+    
+    /* Container für den Hauptinhalt */
     .container {
       max-width: 1200px;
       width: 100%;
-      margin-top: 120px;
-      border-radius: 10px;
-      overflow: hidden;
+      margin-top: 100px;
       padding: 20px;
-      background-color: #1e1e1e;
-      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
+      background-color: transparent;
+      box-shadow: none;
     }
-
+    
+    /* Tab-Inhalte mit Wind-Animation */
     section {
       display: none;
       padding: 40px;
       background-color: #333;
       border-radius: 8px;
       box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5);
+      transform: translateX(100%);
+      opacity: 0;
+      transition: transform 0.5s ease-in-out, opacity 0.5s ease-in-out;
+      margin-bottom: 40px; /* Platz für eventuelle Pfeile */
     }
-
-    .active {
+    
+    section.active {
       display: block;
+      transform: translateX(0%);
+      opacity: 1;
+      animation: windAnimation 0.7s ease-in-out;
+    }
+    
+    @keyframes windAnimation {
+      0% {
+        transform: translateX(50px);
+        opacity: 0;
+      }
+      60% {
+        transform: translateX(-20px);
+        opacity: 0.8;
+      }
+      100% {
+        transform: translateX(0);
+        opacity: 1;
+      }
+    }
+    
+    h2 {
+      color: #bb86fc;
+      font-size: 2em;
+      margin-bottom: 20px;
+    }
+    
+    h3 {
+      color: #ffffff;
+      margin-bottom: 10px;
+    }
+    
+    ul {
+      color: #e0e0e0;
+      list-style: none;
+      padding-left: 20px;
+    }
+    
+    ul li {
+      margin: 8px 0;
+    }
+    
+    .link {
+      color: #64b5f6;
+      text-decoration: none;
+    }
+    
+    .link:hover {
+      text-decoration: underline;
+    }
+    
+    html, body {
+      scroll-behavior: smooth;
     }
   </style>
 </head>
 <body>
-  <header></header>
-  
-  <nav>
-    <a href="#mein-setup" onclick="showSection('mein-setup')">My Setup</a>
-    <a href="#guides" onclick="showSection('guides')">Guides</a>
-    <a href="#my-programms" onclick="showSection('my-programms')">My Programs</a>
-    <a href="#disrdp" onclick="showSection('disrdp')">Discord</a>
+  <!-- Floating Tab-Leiste -->
+  <nav id="navbar">
+    <a href="#" onclick="showSection('mein-setup')">Mein Setup</a>
+    <a href="#" onclick="showSection('tools')">Tools</a>
+    <a href="#" onclick="showSection('emulators')">Emulatoren</a>
+    <a href="#" onclick="showSection('support')">Support</a>
+    <a href="#" onclick="showSection('guides')">Anleitungen</a>
+    <a href="#" onclick="showSection('discord')">Discord</a>
   </nav>
   
   <div class="container">
-    <section id="mein-setup" class="tab-section">
-      <h2 style="color: #bb86fc;">My Setup</h2>
-      <p>Content for My Setup goes here.</p>
+    <!-- Mein Setup Section -->
+    <section id="mein-setup" class="tab-section active">
+      <h2>Mein Setup</h2>
+      <h3>Geizhals Liste:</h3>
+      <p>
+        <a href="https://geizhals.de/wishlists/4136843" class="link" target="_blank">
+          Geizhals Wunschliste (manche sachen gab nicht wieso auch immer)
+        </a>
+      </p>
+      
+      <h3>PC Specs:</h3>
+      <ul>
+        <li>CPU: AMD Ryzen 7 7800x3d</li>
+        <li>GPU: Nvidia Geforce RTX 4070 Super</li>
+        <li>Mainboard: Asus Tuf Gaming B650 Plus WIFI</li>
+        <li>SSD 1: Lexar NM790 1TB</li>
+        <li>SSD 2: Kingston KC3000 2TB</li>
+        <li>(Externe HDD): 512GB</li>
+        <li>Ram: Corsair Vengeance RGB Grau 32GB 6000MHZCL30</li>
+        <li>Extra Lüfter: Corsair Icue AF120 RGB Elite</li>
+        <li>Gehäuse: Corsair iCUE 4000D RGB Airflow Schwarz</li>
+        <li>CPU Kühlung: Corsair iCUE H100i Elite Capellix XT</li>
+        <li>Netzteil: Corsair RM850e 850W</li>
+      </ul>
+      
+      <h3>Setup:</h3>
+      <ul>
+        <li>Tastatur: Razer Huntsman V2 TKL schwarz (Red Switches)</li>
+        <li>Keycaps: SteelSeries PrismCaps Pudding Schwarz</li>
+        <li>Maus (alt): Razer Viper 8K</li>
+        <li>Maus (neu): Razer Viper v3 Pro</li>
+        <li>Monitor: idk irgentein Koorui Monitor mit 165HZ und 2K Auflösung</li>
+        <li>Kamera: Elgato Facecam (die normale)</li>
+        <li>Headset: Corsair HS80 Max</li>
+      </ul>
+      
+      <h3>Andere:</h3>
+      <ul>
+        <li>Goldener Wii Classic Controller</li>
+        <li>2. GC Controller</li>
+        <li>1 Switch Pro Controller</li>
+        <li>SanDisk Ultra 32GB</li>
+        <li>2. SanDisk Extreme Pro 256GB (1. kaputt)</li>
+        <li>Intenso Speed Line USB 64GB</li>
+        <li>(leider): Windows 11 Pro Lizenz</li>
+        <li>2. Nintendo Switches (1. Hacked und gebannt lol)</li>
+        <li>3. 3DSs (nur einer Heil)</li>
+        <li>Amazon Basic SD Karte 128GB (müll SD Karte)</li>
+        <li>Beikell USB 3.0 Kartenleser</li>
+        <li>RCM Loader + RCM Jig</li>
+        <li>EZ Flash Parallel</li>
+        <li>Mauspad: idk irgent ein beliges schwarzez</li>
+        <li>Wii Pro Contoller Adapter aus Japan der viel zu überteuert dafür war</li>
+        <li>GC Adapter</li>
+        <li>Irgent ein USB erweiterungs dinges</li>
+        <li>ein kaputter Wecker</li>
+        <li>viele usb kabel</li>
+        <li>Leckere Salzlampe</li>
+      </ul>
+      
+      <h3>*sonst hab ich nur noch so müll einfach.*</h3>
     </section>
-    
+
+    <!-- Weitere Abschnitte (Platzhalter) -->
+    <section id="tools" class="tab-section">
+      <h2>Tools</h2>
+      <p>Inhalte für die Tools-Sektion werden hier hinzugefügt.</p>
+    </section>
+
+    <section id="emulators" class="tab-section">
+      <h2>Emulatoren</h2>
+      <p>Inhalte für die Emulatoren-Sektion werden hier hinzugefügt.</p>
+    </section>
+
+    <section id="support" class="tab-section">
+      <h2>Support</h2>
+      <p>Inhalte für die Support-Sektion werden hier hinzugefügt.</p>
+    </section>
+
     <section id="guides" class="tab-section">
-      <h2 style="color: #bb86fc;">Guides</h2>
-      <p>Content for Guides goes here.</p>
+      <h2>Anleitungen</h2>
+      <p>Inhalte für die Anleitungen-Sektion werden hier hinzugefügt.</p>
     </section>
-    
-    <section id="my-programms" class="tab-section">
-      <h2 style="color: #bb86fc;">My Programs</h2>
-      <p>Content for My Programs goes here.</p>
-    </section>
-    
-    <section id="disrdp" class="tab-section">
-      <h2 style="color: #bb86fc;">Discord</h2>
-      <p>Content for Discord goes here.</p>
+
+    <section id="discord" class="tab-section">
+      <h2>Discord</h2>
+      <p>Inhalte für die Discord-Sektion werden hier hinzugefügt.</p>
     </section>
   </div>
-  
+
   <script>
     function showSection(sectionId) {
       const sections = document.querySelectorAll('.tab-section');
       sections.forEach(section => {
         section.classList.remove('active');
       });
-      
-      const activeSection = document.getElementById(sectionId);
-      activeSection.classList.add('active');
+      document.getElementById(sectionId).classList.add('active');
     }
   </script>
 </body>
