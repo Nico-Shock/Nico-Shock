@@ -19,7 +19,7 @@
       overflow-x: hidden;
     }
     
-    /* Floating, leicht abgerundete Tab-Leiste */
+    /* Floating Tab-Leiste */
     nav {
       display: flex;
       justify-content: center;
@@ -34,6 +34,7 @@
       border-radius: 12px;
       box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5);
       width: fit-content;
+      transition: top 0.3s ease-in-out;
     }
     
     /* Tabs */
@@ -142,6 +143,11 @@
     html, body {
       scroll-behavior: smooth;
     }
+
+    /* Tab-Leiste nach oben verschieben */
+    .nav-hidden {
+      top: -80px; /* Tab-Leiste wird außerhalb des Bildschirms verschoben */
+    }
   </style>
 </head>
 <body>
@@ -159,7 +165,7 @@
     <!-- Home Section (Standardinhalt, erscheint standardmäßig) -->
     <section id="home" class="tab-section">
       <h2>Home</h2>
-      <p>Willkommen auf der Startseite. Wähle einen Tab aus der Navigation, um fortzufahren. Texte und Struktur wurden erstmal mit KI vorgelegt.</p>
+      <p>Willkommen auf der Startseite. Wähle einen Tab aus der Navigation, um fortzufahren.</p>
     </section>
     
     <!-- Mein Setup Section -->
@@ -168,7 +174,7 @@
       <h3>Geizhals Liste:</h3>
       <p>
         <a href="https://geizhals.de/wishlists/4136843" class="link" target="_blank">
-          Geizhals Wunschliste (manche sachen gab nicht wieso auch immer)
+          Geizhals Wunschliste (manche Sachen sind nicht verfügbar, warum auch immer)
         </a>
       </p>
       
@@ -193,7 +199,7 @@
         <li>Keycaps: SteelSeries PrismCaps Pudding Schwarz</li>
         <li>Maus (alt): Razer Viper 8K</li>
         <li>Maus (neu): Razer Viper v3 Pro</li>
-        <li>Monitor: idk irgentein Koorui Monitor mit 165HZ und 2K Auflösung</li>
+        <li>Monitor: Irgendein Koorui Monitor mit 165Hz und 2K Auflösung</li>
         <li>Kamera: Elgato Facecam (die normale)</li>
         <li>Headset: Corsair HS80 Max</li>
       </ul>
@@ -207,22 +213,22 @@
         <li>2. SanDisk Extreme Pro 256GB (1. kaputt)</li>
         <li>Intenso Speed Line USB 64GB</li>
         <li>(leider): Windows 11 Pro Lizenz</li>
-        <li>2. Nintendo Switches (1. Hacked und gebannt lol)</li>
-        <li>3. 3DSs (nur einer Heil)</li>
+        <li>2. Nintendo Switches (1. Hacked und gebannt)</li>
+        <li>3. 3DSs (nur einer heil)</li>
         <li>Amazon Basic SD Karte 128GB (müll SD Karte)</li>
         <li>Beikell USB 3.0 Kartenleser</li>
         <li>RCM Loader + RCM Jig</li>
         <li>EZ Flash Parallel</li>
-        <li>Mauspad: idk irgent ein beliges schwarzez</li>
-        <li>Wii Pro Contoller Adapter aus Japan der viel zu überteuert dafür war</li>
+        <li>Mauspad: Irgendein beliebiges schwarzes</li>
+        <li>Wii Pro Controller Adapter aus Japan, der viel zu überteuert war</li>
         <li>GC Adapter</li>
-        <li>Irgent ein USB erweiterungs dinges</li>
-        <li>ein kaputter Wecker</li>
-        <li>viele usb kabel</li>
+        <li>Irgendein USB-Erweiterungsgerät</li>
+        <li>Ein kaputter Wecker</li>
+        <li>Viele USB-Kabel</li>
         <li>Leckere Salzlampe</li>
       </ul>
       
-      <h3>*sonst hab ich nur noch so müll einfach.*</h3>
+      <h3>*Sonst hab ich nur noch so Kram.*</h3>
     </section>
     
     <!-- Guides Section -->
@@ -251,7 +257,10 @@
   </div>
   
   <script>
-    // Funktion: Beim Klick den entsprechenden Abschnitt anzeigen und den URL-Hash setzen.
+    let lastScrollTop = 0; // Variable zum Speichern des letzten Scroll-Standes
+    let scrollThreshold = 100; // Definiert, wie weit man nach unten scrollen muss, damit die Tab-Leiste verschwindet
+
+    // Funktion: Beim Klick den entsprechenden Abschnitt anzeigen und den URL-Hash setzen
     function showSection(sectionId) {
       const sections = document.querySelectorAll('.tab-section');
       sections.forEach(section => {
@@ -261,7 +270,7 @@
       // URL-Hash aktualisieren, damit bei Reload der letzte Tab erhalten bleibt
       window.location.hash = sectionId;
     }
-    
+
     // Beim Laden der Seite den Hash prüfen und den entsprechenden Abschnitt aktivieren
     window.addEventListener('DOMContentLoaded', () => {
       const hash = window.location.hash.substring(1);
@@ -270,6 +279,25 @@
       } else {
         showSection('home');
       }
+    });
+
+    // Scroll-Event hinzufügen, um die Tab-Leiste je nach Scrollrichtung zu verstecken oder anzuzeigen
+    window.addEventListener('scroll', () => {
+      let currentScroll = window.pageYOffset || document.documentElement.scrollTop;
+      
+      // Wenn man nach unten scrollt und genug nach unten gescrollt hat, die Tab-Leiste verschwinden lassen
+      if (currentScroll > scrollThreshold) {
+        document.querySelector('nav').classList.add('nav-hidden');
+      } else {
+        document.querySelector('nav').classList.remove('nav-hidden');
+      }
+
+      // Wenn man nach oben scrollt, die Tab-Leiste immer anzeigen
+      if (currentScroll < lastScrollTop) {
+        document.querySelector('nav').classList.remove('nav-hidden');
+      }
+
+      lastScrollTop = currentScroll <= 0 ? 0 : currentScroll; // Sicherstellen, dass lastScrollTop nicht negativ wird
     });
   </script>
 </body>
